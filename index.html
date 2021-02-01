@@ -29,8 +29,8 @@
         <article>
           <h3 class="search-title my-1">Search for a City:</h3>
           <form id="user-city" class="inputArea">
-            <input name="city" id="city" type="text" autofocus="true" class="form-input" placeholder="enter city here" aria-label="enter city here"/>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+            <input name="city" id="inputCity" type="text" autofocus="true" class="form-input" placeholder="enter city here" aria-label="enter city here"/>
+            <button type="submit" class="btn btn-primary" id="submit"><i class="fas fa-search"></i></button>
           </form>
         </article>
 
@@ -49,14 +49,14 @@
       <section class="col-xs-12 col-s-12 col-md-8 col-lg-8 col-xl-8 infoWeather">
 
         <!--info will show up here-->
-        <article class="col-12 m-3 rounded">
+        <article class="col-12 m-3 rounded weather">
           <!--Weather today-->
         </article>
 
         <article class="row">
           <h3 class="forecastWords">5-Day Forecast: </h3>
         </article>
-        <article>
+        <article class="weather5">
           <!--5 day forecast shows here-->
         </article>
        
@@ -64,6 +64,12 @@
    
 
     </section>
+
+    <!--link to jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--link to js files-->
+    <script src="assets/js/script.js"></script>
+
 
   </main>
 
