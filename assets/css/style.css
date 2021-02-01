@@ -1,14 +1,22 @@
+body {
+  background-color: rgb(44, 44, 48);
+}
+
 .titleDash {
   color: white;
   text-align: center;
   padding: 5px;
 }
+.search-title {
+  color: white;
+}
+
 nav {
-  background-color: grey;
+  background-color: rgba(19, 19, 20, 0.623);
 }
 
 .clear-btn {
-  width: 20%;
+  width: 30%;
   font-size: 14px;
 }
 .container {
@@ -18,6 +26,7 @@ nav {
 .infoWeather,
 .searchCard{
   margin-left: 30px;
+  background-color: rgba(18, 18, 22, 0);
 }
 
 .rowAll {
