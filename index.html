@@ -25,17 +25,17 @@
   <main class="container">
     <!--Search area card, input with search button, clear button-->
     <section class="row rowAll">
-      <section class="col-xs-12 col-s-12 col-md-4 col-lg-4 col-xl-4 searchCard">
+      <section class="col-xs-12 col-s-12 col-md-4 col-lg-4 col-xl-4 card searchCard">
         <article>
-          <h3 class="search-title my-1">Search for a City:</h3>
-          <form id="user-city" class="inputArea">
+          <h3 class="search-title my-2">Search for a City:</h3>
+          <div id="user-city" class="inputArea">
             <input name="city" id="inputCity" type="text" autofocus="true" class="form-input" placeholder="enter city here" aria-label="enter city here"/>
-            <button type="submit" class="btn btn-primary" id="submit"><i class="fas fa-search"></i></button>
-          </form>
+            <button type="submit" class="btn btn-primary my-2" id="submitBtn"><i class="fas fa-search"></i></button>
+          </div>
         </article>
 
         <!--clear history button-->
-        <button class="clear-btn btn btn-secondary mb-2">clear all</button>
+        <button class="clear-btn btn btn-primary mb-2">clear all</button>
 
         <!--history area-->
         <article class="userSearchHist">
@@ -49,14 +49,14 @@
       <section class="col-xs-12 col-s-12 col-md-8 col-lg-8 col-xl-8 infoWeather">
 
         <!--info will show up here-->
-        <article class="col-12 m-3 rounded weather">
+        <article class="col-12 mr-3 rounded weatherToday">
           <!--Weather today-->
         </article>
 
-        <article class="row">
-          <h3 class="forecastWords">5-Day Forecast: </h3>
+        <article class="row mt-3">
+          <h3 class="forecastWords"></h3>
         </article>
-        <article class="weather5">
+        <article class="row weatherForecast">
           <!--5 day forecast shows here-->
         </article>
        
@@ -67,6 +67,7 @@
 
     <!--link to jquery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!--link to js files-->
     <script src="assets/js/script.js"></script>
 

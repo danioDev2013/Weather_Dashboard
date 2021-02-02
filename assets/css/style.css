@@ -7,7 +7,14 @@ body {
   text-align: center;
   padding: 5px;
 }
-.search-title {
+
+.search-title,
+.history-list,
+.forecastWords {
+  color: white;
+}
+.card {
+  background-color: rgba(128, 128, 128, 0);
   color: white;
 }
 
@@ -19,6 +26,7 @@ nav {
   width: 30%;
   font-size: 14px;
 }
+
 .container {
   max-width: 100%;
 }
@@ -31,10 +39,6 @@ nav {
 
 .rowAll {
   margin-top: 10px;
-}
-
-.forecastWords{
-  display: none;
 }
 
 .col-s-12, 
@@ -56,6 +60,19 @@ and (min-width: 200px)
 and (max-width: 750px) {
  .clear-btn {
    font-size: 10px;
+   width: 10%;
  }
 }
+@media screen 
+and (min-width: 751px)
+and (max-width: 999px) {
+  .clear-btn {
+    font-size: 14px;
+    width: 40%;
+  }
+}
 
+
+.card {
+  border: none;
+}
