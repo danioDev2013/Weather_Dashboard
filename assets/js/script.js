@@ -109,7 +109,7 @@ $(document).ready(function() {
         var humidity = $('<p class="card-text">').text("Humidity: " + data.main.humidity + "%");
         var temperature= $('<p class="card-text">').text("Temperature: " + kelvinFarenheit.toFixed() +  " °F");
         var card = $('<div class="card-body">');
-        var image = $("<img class='img-weather'>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+        var image = $("<img class='img-weather'>").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
 
 
         //appends it all together to add it to the html
@@ -168,7 +168,7 @@ $(document).ready(function() {
             
             var cardT = $('<h5 class="forecast-date">').text(dateTxt);
 
-            var newImg = $('<img>').attr("src", "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png"); 
+            var newImg = $('<img>').attr("src", "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png"); 
             var tempRound = data.list[i].main.temp_max
             var pt = $('<p class="txt">').text("Temp: " + tempRound.toFixed() + "°F");
             var pH = $('<p class="txt">').text("Humidity: " + data.list[i].main.humidity + "%");
