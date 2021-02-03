@@ -7,10 +7,14 @@ body {
   text-align: center;
   padding: 5px;
 }
-
+.img-weather {
+  width: 100px;
+  height: 100px;
+}
 .search-title,
 .history-list,
-.forecastWords {
+.forecastWords,
+.weatherForecast {
   color: white;
 }
 .card {
