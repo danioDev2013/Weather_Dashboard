@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    var userFormEl = $('#user-city');
+
+    //variable selectors global
     var submitBtn = $('#submitBtn');
     var clearBtn = $(".clear-btn");
     var searchHis = $(".userSearchHist");
@@ -8,50 +9,70 @@ $(document).ready(function() {
     var userInput = $("#inputCity");
     var forecastTitle = $(".forecastWords");
 
-    var histArr = [];
+    if(localStorage.getItem("history") !== null) {
+        var cityI = JSON.parse(localStorage.getItem("history"));
+        for(i = 1; i < cityI.length; i++) {
+            makeRow(cityI[i]);
+        }
+    }
+   
 
+ 
+
+    //API key for open weather
     var APIkey = "424b27cb93fafd7914e312602e3d2a39"
 
-    submitBtn.on("click", function(){
+    //on click function
+    submitBtn.on("click", function(event){
+        event.preventDefault();
         var searchCity = $(userInput).val();
         console.log(searchCity);
         
+        //clears the users window afterwards
         if($(userInput).val()) {
             $(userInput).val("");
         }
+        //calls the getTodays weather function
         getTodaysWeather(searchCity);
-
-
-        
 
     });
 
+    $(".userSearchHist").on("click", "li", function () {
+        getTodaysWeather($(this).text());
+    })
+
+    //clears user history and the search rows
     clearBtn.on("click", function() {
         $(".userSearchHist").empty();
-        histArr = [];
         localStorage.clear();
-    })
+    });
 
 
     function getTodaysWeather(searchCity) {
+
+        //api for open weather
         var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + searchCity +'&appid=' + APIkey;
 
+        //fetch the information
         fetch(weatherUrl)
             .then(function (response) {
                 if(response.ok) {
+
                     //console.log(response);
+                    searchHis.push(searchCity);
+                    window.localStorage.setItem("history", JSON.stringify(searchHis));
                     
                     makeRow(searchCity);
                     response.json().then(function (data) {
-                        console.log(data);
-                        makeContent(data);
+                        //console.log(data);
+                        //calls for the data to show make content, get forecast for five day, and UV index
+                        makeContentForecast(data);
                         getForecast(searchCity);
                         getUVI(data.coord.lat, data.coord.lon);
                     })
-                } else {
-                    console.log("error")
                 }
             })
+
             .catch(function(error) {
                 console.log("not able to connect")
             })
@@ -59,15 +80,20 @@ $(document).ready(function() {
             
     }
 
-    
-
+    //makes the users history row
     function makeRow(text) {
-        var row = $('<article class="row history-list pl-3 pt-2">').text(text);
+        console.log(searchHis);
+        var row = $('<li class="row history-list pl-3 pt-2">').text(text);
+        console.log(text);
+        console.log($(".history-list").text());
+    
         searchHis.append(row);
+
+        
     }
 
-    //make the card, display it
-    function makeContent(data) {
+    //make the card, to display todays weather
+    function makeContentForecast(data) {
 
         //empties the card from previous info
         weatherToday.empty();
@@ -76,7 +102,7 @@ $(document).ready(function() {
         //math for converting kelvin to farenheit
         var kelvinFarenheit = Math.floor((data.main.temp -  273.15) *1.8 +32);
 
-        //creates the card, adds the info from the data to the card
+        //creates the card, adds the info from the data from the api to the card
         var weatherTitle = $('<h3 class="card-title" id="city">').text(info);
         var weatherCard = $('<article class="card border border-primary">');
         var wind = $('<p class="card-text">').text("Wind Speed: " + data.wind.speed + "MPH");
@@ -91,7 +117,6 @@ $(document).ready(function() {
         card.append(weatherTitle, temperature, humidity, wind);
         weatherCard.append(card);
         weatherToday.append(weatherCard);
-        
     }
 
     //gets the five day forecast
@@ -110,9 +135,7 @@ $(document).ready(function() {
                         makeForecastContent(data);
                         
                     }) 
-                } else {
-                    console.log("error")
-                }
+                } 
             })
             .catch(function(error) {
                 console.log("not able to connect")
@@ -131,7 +154,7 @@ $(document).ready(function() {
         //loops and creates only 5 days
         for(var i = 0; i < forecastLength; i++) {
             
-            //create date
+            //create the dates title
             var forIn = i * 8 + 4;
             var forDate = new Date(data.list[forIn].dt * 1000);
             var forDay = forDate.getDate();
@@ -159,6 +182,7 @@ $(document).ready(function() {
         }
     }
 
+    //function get UV Index adds badge to the index
     function getUVI(lat, lon) {
         var UVUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + lon + '&appid=' + APIkey;
 
@@ -168,41 +192,34 @@ $(document).ready(function() {
              if(response.ok) {
                  //console.log(response);
                  response.json().then(function (data) {
-                    console.log(data);
-                    displayUv(data);
+                    $('.uvIndex').empty()
+
+                    //adds uv to body, also filters through and creates badges depending on uv index, then creates message
+                    var uv = $('<p class="uvIndex">').text('UV Index: ');
+                    var uvinfo = $('<span>').text(data.value);
+                    var para = $('<span>').text("");
+                    if(data.value < 3) {
+                        uvinfo.addClass('badge badge-primary');
+                    } else if (data.value < 7) {
+
+                        uvinfo.addClass("badge badge-warning"); 
+                        var p = $('<p class="subB badge badge-warning">').text("Don't Forget SubBlock");
+                        para.append(p);
+                      }
+                      else {
+                        uvinfo.addClass("badge badge-danger");
+                        var p = $('<p class="subB badge badge-danger">').text("High UV Index");
+                        para.appen(p);
+                      }
+            
+                    $(".card-body").append(uv.append(uvinfo));
+                    $(".card-body").append(para);
                 }) 
-             } else {
-                 console.log("error")
-             }
+             } 
          })
          .catch(function(error) {
              console.log("not able to connect")
          })
     }
 
-    function displayUv(data) {
-        $('.uvIndex').empty()
-
-        var uv = $('<p class="uvIndex">').text('UV Index: ');
-        var uvinfo = $('<span>').text(data.value);
-
-        if(data.value < 3) {
-            uvinfo.addClass('badge badge-primary');
-        } else if (data.value < 7) {
-            uvinfo.addClass("badge badge-warning"); 
-          }
-          else {
-            uvinfo.addClass("badge badge-danger");
-          }
-
-        $(".card-body").append(uv.append(uvinfo));
-        
-    }
-
-    function getLS() {
-        var lsData = localStorage.getItem("history");
-        console.log(lsData);
-        
-    }
-    getLS();
 })  

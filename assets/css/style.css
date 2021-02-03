@@ -59,22 +59,6 @@ nav {
   text-align: left;
 }
 
-@media screen 
-and (min-width: 200px)
-and (max-width: 750px) {
- .clear-btn {
-   font-size: 10px;
-   width: 10%;
- }
-}
-@media screen 
-and (min-width: 751px)
-and (max-width: 999px) {
-  .clear-btn {
-    font-size: 14px;
-    width: 40%;
-  }
-}
 
 
 .card {
