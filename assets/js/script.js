@@ -122,7 +122,7 @@ $(document).ready(function() {
     //gets the five day forecast
     function getForecast(searchCity) {
         //forecast url
-        var forecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + APIkey + "&units=imperial";
+        var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + APIkey + "&units=imperial";
 
         //fetch url
         fetch(forecastUrl)
@@ -184,7 +184,7 @@ $(document).ready(function() {
 
     //function get UV Index adds badge to the index
     function getUVI(lat, lon) {
-        var UVUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + lon + '&appid=' + APIkey;
+        var UVUrl = 'https://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + lon + '&appid=' + APIkey;
 
          //fetch url
          fetch(UVUrl)
