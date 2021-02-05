@@ -9,15 +9,17 @@ $(document).ready(function() {
     var userInput = $("#inputCity");
     var forecastTitle = $(".forecastWords");
 
+    
+    //get local storage and creates row
     if(localStorage.getItem("history") !== null) {
         var cityI = JSON.parse(localStorage.getItem("history"));
-        for(i = 1; i < cityI.length; i++) {
+        for(i = 0; i < cityI.length; i++) {
             makeRow(cityI[i]);
         }
     }
-   
 
- 
+    searchHisArr = []
+    var searchHisArr = [];
 
     //API key for open weather
     var APIkey = "424b27cb93fafd7914e312602e3d2a39"
@@ -32,11 +34,14 @@ $(document).ready(function() {
         if($(userInput).val()) {
             $(userInput).val("");
         }
+    
+
         //calls the getTodays weather function
         getTodaysWeather(searchCity);
 
     });
 
+    //when city is clicked on function
     $(".userSearchHist").on("click", "li", function () {
         getTodaysWeather($(this).text());
     })
@@ -48,6 +53,7 @@ $(document).ready(function() {
     });
 
 
+    //function to get weather
     function getTodaysWeather(searchCity) {
 
         //api for open weather
@@ -57,12 +63,6 @@ $(document).ready(function() {
         fetch(weatherUrl)
             .then(function (response) {
                 if(response.ok) {
-
-                    //console.log(response);
-                    searchHis.push(searchCity);
-                    window.localStorage.setItem("history", JSON.stringify(searchHis));
-                    
-                    makeRow(searchCity);
                     response.json().then(function (data) {
                         //console.log(data);
                         //calls for the data to show make content, get forecast for five day, and UV index
@@ -70,6 +70,8 @@ $(document).ready(function() {
                         getForecast(searchCity);
                         getUVI(data.coord.lat, data.coord.lon);
                     })
+                } else {
+                    alert("City Not Found, Try Again.");
                 }
             })
 
@@ -77,19 +79,17 @@ $(document).ready(function() {
                 console.log("not able to connect")
             })
 
+            searchHisArr.push(searchCity);
+            
+                localStorage.setItem('history', JSON.stringify(searchHisArr));
+                makeRow(searchCity);
             
     }
 
-    //makes the users history row
+    //makes the cities rows for list
     function makeRow(text) {
-        console.log(searchHis);
         var row = $('<li class="row history-list pl-3 pt-2">').text(text);
-        console.log(text);
-        console.log($(".history-list").text());
-    
-        searchHis.append(row);
-
-        
+        searchHis.append(row); 
     }
 
     //make the card, to display todays weather

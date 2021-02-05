@@ -44,8 +44,17 @@ When the user opens the website you will see a search bar, with a search button 
 You enter a City within the US. 
 
 Once you click enter, the current weather for that city will pop up and the five day forecast. 
+<img src="assets/images/PageStart.gif" width="100%" alt="search"/>
 
-The users Search History will be saved in the Local Storage so that next time the site is visited they will see them under the search bar. 
+You can clear the information by clicking clear all. Removes Local Storage Data as well.
+
+<img src="assets/images/clear.gif" width="100%" alt="clear"/>
+
+The users Search History will be saved in the Local Storage so that next time the site is visited they will see them under the search bar. Click on the Cities to populate that city you searched for. 
+
+<img src="assets/images/clickon.gif" width="100%" alt="click"/>
+
+
 
 ## License
 ---
